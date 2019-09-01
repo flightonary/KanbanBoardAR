@@ -3,14 +3,14 @@ import ARKit
 extension SCNNode {
     var boundingWidth: Float {
         get {
-            let (min, max) = (boundingBox)
+            let (min, max) = boundingBox
             return Float(max.x - min.x) * scale.x
         }
     }
     
     var boundingHeight: Float {
         get {
-            let (min, max) = (boundingBox)
+            let (min, max) = boundingBox
             return Float(max.y - min.y) * scale.y
         }
     }
@@ -194,7 +194,7 @@ class StickyNoteTableNode: SCNNode {
         
         let centerIndex = Float(rowCount - 1) / 2.0
         if Float(rrow) != centerIndex {
-            heightPosition = Float(Float(rrow) - centerIndex) * rowHeight
+            heightPosition = (Float(rrow) - centerIndex) * rowHeight
         }
         
         return heightPosition
@@ -238,7 +238,7 @@ class LabelNode: SCNNode {
         let textGeometry = SCNText(string: text, extrusionDepth: 0.0001)
 
         // 空間に描画される文字サイズがあまりにも大きいため、containerFrameやフォントサイズでは調整できない。そのため最後にscale downする。
-        // 例えば、下記では何も描画されない。
+        // 例えばcontainerFrameでは何も描画されない。
         // textGeometry.containerFrame = CGRect(x: 0, y: 0, width: CGFloat(0.4), height: CGFloat(0.4))
         // textGeometry.alignmentMode = "center"
         textGeometry.font = UIFont.monospacedDigitSystemFont(ofSize: 20, weight: UIFont.Weight.regular)
